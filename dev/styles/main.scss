@@ -1,0 +1,47 @@
+$bgColor : #FEFEFA;
+$textColor_hover : #765f7c;
+$textColor: #280c2f;
+$siteFont : 'Raleway';
+
+html, body, #map-canvas { 
+    height: 100%; 
+    margin: 0; 
+    padding: 0;
+    font-family: $siteFont, sans-serif;
+    background-color: $bgColor;
+}
+
+#map-canvas{
+    position: fixed;
+    height: 92%;
+}
+
+
+/*
+*NAVIGATION
+*/
+$numbOfMenuItems : 3;
+
+#fixednav {
+    margin: 0;
+    padding: 0;
+    -webkit-padding-start: 0;
+    padding-bottom: 1.5em;
+    border-bottom: 1px solid $textColor;
+    font-size: 1.5em;
+}
+
+.menuItem {
+    list-style: none;
+    margin: 0;
+    display: inline;
+    z-index: 5;
+    width: 100% / $numbOfMenuItems;
+    float: left;
+    text-align: center;
+    color: $textColor;
+}
+
+.menuItem:hover {
+    color: $textColor_hover;
+}

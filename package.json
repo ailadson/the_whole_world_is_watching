@@ -1,0 +1,14 @@
+{
+  "name": "The_Whole_World_is_Watching",
+  "version": "1.0.0",
+  "description": "Police interaction video db",
+  "main": "app/main.py",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "anthony",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt-contrib-sass": "^0.9.2"
+  }
+}

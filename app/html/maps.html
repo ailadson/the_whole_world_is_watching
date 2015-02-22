@@ -1,0 +1,78 @@
+<div id="videoContainer"
+      class="player">
+    <span id="videoClose">X</span>
+    <br>
+    <center><video id="video"  
+           width="320" 
+           height="240" 
+           controls>
+      <source type="video/mp4">
+      <source type="video/webm">
+        Your browser does not support the video tag.
+    </video></center>
+    <div id="videoData">
+        <span style="float: left;" id="videoName"></span>
+        <span style="float: right;" id="videoPromoted"></span>
+        <br>
+        <span style="float: left;" id="videoDate"></span>
+        <span style="float: right;" id="videoLocation"></span>
+        <br>
+        <span style="float: right;" id="videoViewed"></span>
+        <br>
+        <br>
+        <span id="videoAboutTitle"><u>DESCRIPTION</u></span>
+        <div id="videoAbout"></div>
+        <br>
+        <br>
+        <div id="investigateTitle">-RESEARCH-</div>
+        <br>
+        <br>
+    </div>
+</div>
+
+<div id="blanket" class="player"></div>
+<div id="map-canvas"></div>
+<div id="loading">Loading Map...</div>
+<div id="keyBox">
+    <center><u>Key</u></center>
+    <br>
+    <img src="imgs/fatalMarker.png"> Fatal Incidents<br>
+    <img src="imgs/brutalMarker.png"> Police Brutality<br>
+    <img src="imgs/wrongfulMarker.png"> Wrongful Arrest<br>
+    <img src="imgs/defaultMarker.png"> Other Interactions<br>
+</div>
+
+
+{% if results %}
+<script>
+    PP.SERVER_OPTS = {};
+    PP.SERVER_OPTS['results'] = {{ results|safe }}.records;
+    
+    for(var i = 0; i < PP.SERVER_OPTS.results.length; i += 1){
+        var record = PP.SERVER_OPTS.results[i]
+
+        if(record.id == {{ choiceID }}){
+            PP.SERVER_OPTS['lat'] = record.lat;
+            PP.SERVER_OPTS['lng'] = record.lng;
+            PP.SERVER_OPTS['zoom'] = 22;
+            break;
+        }
+    }
+    
+    PP.SERVER_OPTS['lat'] = PP.SERVER_OPTS['lat'] || 40.477418;
+    PP.SERVER_OPTS['lng'] = PP.SERVER_OPTS['lng'] || -98.441178;
+</script>
+{% elif latlng %}
+    <script>
+        PP.SERVER_OPTS = {};
+        PP.SERVER_OPTS['lat'] = parseFloat("{{ latlng }}".split(',')[0]);
+        PP.SERVER_OPTS['lng'] = parseFloat("{{ latlng }}".split(',')[1]);
+    </script>
+{% else %}
+    <script>
+        PP.SERVER_OPTS = {};
+        PP.SERVER_OPTS['lat'] = 40.477418;
+        PP.SERVER_OPTS['lng'] = -98.441178;
+    </script>
+{% endif %}
+
