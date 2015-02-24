@@ -1,0 +1,173 @@
+<div id="contrib" class = "player">
+    <form id="upload2" action="{{ upload_url }}" method="POST" enctype="multipart/form-data">
+        <div id="uploadOuter">
+            <br>
+            <center>
+                <span class="upload1Contain">
+                    <b id="fileHeader"><u>VIDEO FILE (required):</u></b>
+                        <input class="uploadInput"
+                                type="file" 
+                                name="file"
+                               id="file">
+                    <br>
+                    <span style="font-size:.75em;">** mp4, webm, or ogg formats only **</span>
+            </center>
+            <br>
+            <hr>
+            <center>all other input fields are optional</center>
+            <hr>
+            <center><h4 id="theincidentH">THE INCIDENT</h4></center>
+            <div id="theincident" class="uploadSection">
+            <div class="upload1Contain">
+                <label for="aboutInput">About</label>
+                <textarea class="uploadInput" 
+                            id="aboutInput"
+                            name="about"
+                            wrap="soft"
+                            rows=6></textarea>
+            </div>
+            </div>
+                
+            <center><h4 id="personarrestedH">PERSON BEING ARRESTED</h4></center>
+            <div id="personarrested" class="uploadSection">
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label>First Name:</label> <input class="uploadInput" 
+                                       type="text" 
+                                       name="firstName">
+                </span>
+                <span class="rightSide">
+                    <label>Last Name:</label> <input class="uploadInput" 
+                                           type="text" 
+                                           name="lastName">
+                </span>
+            </div>
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label>Ethnicity:</label> <select class="uploadInput"
+                                            name="ethnicity">
+                                        <option value=null></option>
+                                        <option value="asian">Asian</option>
+                                        <option value="black">Black</option>
+                                        <option value="latin">Hispanic/Latin</option>
+                                        <option value="indian">Indian</option>
+                                        <option value="middleEastern">Middle Eastern</option>
+                                        <option value="nativeAmerican">Native American</option>
+                                        <option value="pacificIslander">Pacific Islander</option>
+                                        <option value="white">White</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                </span>
+                <span class="rightSide">
+                    <label>Gender:</label> <select class="uploadInput"
+                                            name="gender">
+                                        <option value=null></option>
+                                        <option value="cWoman">(cis) Woman</option>
+                                        <option value="cMan">(cis) Man</option>
+                                        <option value="tWoman">(trans) Woman</option>
+                                        <option value="tMan">(trans) Man</option>
+                                        <option value="nonconform">Non-Conforming</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                </span>    
+            </div>
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label>Disabled: </label> <input class="uploadInput"
+                                                     type="checkbox"
+                                                     name="ability"> 
+                </span>
+                <span class="rightSide">
+                    <label>Age:</label> <input class="uploadInput" 
+                                type="number" 
+                                name="age">
+                </span>
+            </div>
+            </div>
+            <center><h4 id="arrestingOfficerH">ARRESTING OFFICER</h4></center>
+            <div id="arrestingOfficer" class="uploadSection">
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label for="oFirstName">First Name:</label> <input class="uploadInput" 
+                                            type="text" 
+                                            name="oFirstName">
+                </span>
+                <span class="rightSide">
+                    <label for="oLastName">Last Name:</label> <input class="uploadInput" 
+                                            type="text" 
+                                            name="oLastName">
+                </span>
+            </div>
+            <br>
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label>Badge Number:</label> <input class="uploadInput"
+                                        type="text"
+                                        name="badge">
+                </span>
+                <span class="rightSide">
+                    <label>Department:</label> <input class="uploadInput"
+                                            type="text"
+                                            name="dept">
+                </span>
+            </div>
+            <br>
+            <div class="upload1Contain">
+                <label>Race of Officer:</label> <select class="uploadInput"
+                                        name="oRace">
+                                    <option value=null></option>
+                                    <option value="asian">Asian</option>
+                                    <option value="black">Black</option>
+                                    <option value="latin">Hispanic/Latin</option>
+                                    <option value="indian">Indian</option>
+                                    <option value="middleEastern">Middle Eastern</option>
+                                    <option value="nativeAmerican">Native American</option>
+                                    <option value="pacificIslander">Pacific Islander</option>
+                                    <option value="white">White</option>
+                                    <option value="other">Other</option>
+                                </select>
+            </div>
+            </div>
+            <br>
+            <center>
+                <input type="submit" 
+                       id="submit"
+                       name="Submit" 
+                       value="Submit">
+            </center>
+            <br>
+        </div>
+        <input type="hidden" name="date" value={{date}}>
+        <input type="hidden" name="lat" value={{lat}}>
+        <input type="hidden" name="lng" value={{lng}}>
+        <input type="hidden" name="fatal" value={{fatal}}>
+        <input type="hidden" name="brutal" value={{brutal}}>
+        <br><br><br>
+    </form>
+    
+</div>
+
+<script>
+    var submit = document.getElementById('submit');
+    
+    submit.addEventListener('click',function(evt){
+        submit.value = "Uploading...";
+    });
+    
+    var incident = document.getElementById('theincident');
+    var personarrested = document.getElementById('personarrested');
+    var arrestingOfficer = document.getElementById('arrestingOfficer');
+    
+    var incidentHeader = document.getElementById('theincidentH');
+    var personarrestedHeader = document.getElementById('personarrestedH');
+    var arrestingOfficerHeader = document.getElementById('arrestingOfficerH');
+    
+    var toggleInfo = function(info){
+        var display = info.style.display || 'none';
+        info.style.display = (display=='none') ? 'block' : 'none';
+    }
+    
+    incidentHeader.addEventListener('click', function(){ toggleInfo(incident); });
+    personarrestedHeader.addEventListener('click', function(){ toggleInfo(personarrested); });
+    arrestingOfficerHeader.addEventListener('click', function(){ toggleInfo(arrestingOfficer); });
+</script>

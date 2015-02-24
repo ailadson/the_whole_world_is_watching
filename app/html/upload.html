@@ -1,0 +1,103 @@
+<div id="contrib" class = "player">
+    <form action="upload1" method="POST" enctype="multipart/form-data">
+        <input id="pac-input" class="controls" type="text" placeholder="Search Bar">
+        <a href="#innerContrib" id="scroll-down" class="scrollBtn"><img width="60" src="imgs/scrollDown.png"></a>
+        <span id="mapIntruct">Set incident location by clicking on map. Refine location by moving marker</span>
+        <div id="mapContrib"></div>
+          <div id="innerContrib">
+            <div style="margin-left: 2%;">
+                <h4>&nbsp;&nbsp;Submission Rules:</h4>
+                <ol id="submitRules">
+                    <li>All videos must depict interaction with law enforcement</li>
+                    <li>All videos must be appropriately tagged (i.e. if tagged as burtality, video should depict brutality)</li>
+                    <li>All videos must have an associated date</li>
+                    <li>All videos must have an associated location</li>
+                    <li>On the next page, you can enter more information about the incident. The information provided will help classify the video and help people find it in 'Search'. However, because we are dedicated to the privacy of submitters, <b>all other info is optional</b>. No information about you is retained, unless you give permission.</li>
+                </ol>
+            </div>
+            <div class="uploadContain">
+                <center><u><b>Date</b></u><br></center>
+                <center><input class="contribInput"
+                                type="date"
+                               id="date"
+                               name="date"></center>
+            </div>
+            <br><br>
+            <div class="uploadContain">
+                <center><u><b>Type Of Interaction</b></u><br></center>
+                Police Brutality: <input class="contribInput"
+                                type="radio"
+                                name="type"
+                                value="brutal"
+                                checked><br>
+                Fatal Encounter: <input class="contribInput"
+                                        type="radio"
+                                        name="type"
+                                        value="fatal"><br>
+                Wrongful Arrest: <input class="contribInput"
+                                        type="radio"
+                                        name="type"
+                                        value="wrongful"><br>
+                Other Interaction: <input class="contribInput"
+                                        type="radio"
+                                        name="type"
+                                        value="interaction">
+            </div>
+            <br><br>
+            <div class="uploadContain">
+                <center><u><b>Location</b></u><br></center>
+                <h5>
+                +Use the map on the right to pinpoint the location of the interaction.<br><br>
+                +Click on any point in the map to update the position. <br><br>
+                +Zoom-in and drag marker to the precise area of incident. Be as specific as possible.</h5>
+                Latitude: <input class="contribInput" 
+                                 type="text" 
+                                name="lat" 
+                                 id="lat"
+                                 placeholder="USE MAP"
+                                 readonly>
+            </div>
+            <div class="uploadContain">
+                Longitude: <input class="contribInput" 
+                               type="text" 
+                               name="lng" 
+                                  id="lng"
+                                  placeholder="USE MAP"
+                                 readonly>
+            </div>
+            <center><a href="#mapContrib" class="scrollBtn">
+                <img src="imgs/scrollUp.png" width="60"><br>
+                <p id="scrollText">Click to go back to map</p>
+            </a></center>
+            <br>
+            <span class="uploadContain">
+                <input type="submit" name="Submit" value="Next Page" onClick="return checkEmpty()">
+            </span>
+            <br><br>
+        </div>
+    </form>
+    
+</div>
+
+{% if dev_mode %}
+<script type="text/javascript" src="scripts/main.js"></script>
+<script type="application/javascript" src="scripts/marker.js"></script>
+<script type="application/javascript" src="scripts/contribute.js"></script>
+{% else %}
+<script type="text/javascript" src="scripts/main.min.js"></script>
+<script type="application/javascript" src="scripts/contribute.js"></script>
+{% endif %}
+
+<script>
+    function checkEmpty(){
+        var lng = document.getElementById('lng').value;
+        var date = document.getElementById('date').value;
+        if(!date){
+            alert("Please enter the date of the incident.")
+            return false;
+        } else if(!lng){
+            alert("Please pinpoint location of incident with the map.")
+            return false;
+        }
+    }
+</script>

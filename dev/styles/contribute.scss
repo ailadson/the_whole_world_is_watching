@@ -1,0 +1,214 @@
+@import 'variables';
+
+@media all and (max-width: 750px) {
+    label {
+        display: block;
+    }
+    .upload1Contain input {
+        width: 96%;
+    }
+}
+
+@media all and (max-width: 450px) {
+    h4 {
+        margin: 0px;
+        border-bottom: 1px solid black;
+        padding: 5px;
+        background-color: $bgColor;
+        cursor: pointer;
+    }
+    
+    label{
+        padding-top: 10px;
+        padding-left: 10px;
+    }
+    
+    .uploadSection{
+        display: none;
+        background-color: #e2e2d9;
+    }
+    
+    #submit {
+        padding: 10px;
+        font-size: 1.5em;
+    }
+    
+    #file {
+        background-color: #e2e2d9;
+    }
+    
+    #fileHeader {
+        display: block;
+    }
+}
+
+/*
+**CONTRIBUTE
+*/
+#contrib {
+    height: 92%;
+    width: 100%;
+    position: relative;
+    overflow: hidden;   
+}
+
+#contribOuter {
+    width : 50%;
+    height: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+
+#contribInner {
+    width: 100%;
+    height: 27%;
+}
+
+#uploadOuter{
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow-y: scroll;
+    
+    @media all and (max-width: 750px) {
+        width: 100%;
+    }
+}
+
+#innerContrib {
+    width: 50%;
+    height: 100%;
+    float: right;
+    overflow-y: scroll;
+    @media all and (max-width: 750px) {
+        width: 100%;
+        height: 100%;
+    }
+}
+
+#mapContrib {
+    width: 50%;
+    height: 100%;
+    float: left;
+    @media all and (max-width: 750px) {
+        width: 100%;
+        height: 100%;
+    }
+    
+}
+
+.contribInput {
+    margin-top: 4%;
+}
+
+.uploadContain {
+    margin-left: 10%;
+    padding-right: 10%;
+}
+
+.upload1Contain {
+    margin-left: 10%;
+    width: 80%;
+    display:inline-block;
+    @media all and (max-width: 450px) {
+        width: 100%;
+        margin-left: 0px;
+    }
+}
+
+#contribSubmitContainer {
+    width: 100%;
+    height: 100%;
+    float: right;
+    position: fixed;
+    display: none;
+}
+
+#contribSubmit {
+    margin-left: auto;
+    margin-right: auto;
+    width: 30%;
+    margin-top: 30%;
+}
+
+#pac-input {
+    width: 70%;
+    height: 3%;
+    margin-top: 15%;
+    margin-left: 5%;
+    padding-bottom: 5px;
+    font-size: 1.5em;
+}
+
+.uploadInput {
+    margin-bottom: 2%;
+}
+
+.upload1Input {
+    margin-bottom: 2%;
+}
+
+.uploadHeader {
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+}
+
+#aboutInput {
+    padding-bottom: 5%;
+    width: 98%;
+}
+
+#submitRules li {
+    font-size: 1em;
+    padding-bottom: 3px;
+}
+
+#upload1Form {
+    overflow-y: scroll;
+}
+
+.scrollBtn {
+    display: none;
+    
+    @media all and (max-width: 750px) {
+        display: inline;
+    }
+}
+
+.scrollBtn p{
+    margin: 0px;
+    font-size: .75em;
+    text-decoration: none;
+    color: black;
+}
+
+#mapIntruct {
+    width: 60%;
+    display: none;
+    border: 1px solid black;
+    background-color: $bgColor;
+    text-align: center;
+    font-size: 1em;
+        
+    @media all and (max-width: 750px) {
+        display: inline;
+    }
+}
+
+.rightSide{
+    float: right;
+    @media all and (max-width: 750px) {
+        width: 100%;
+        float: none;
+    }
+}
+
+.leftSide {
+    float: left;
+    @media all and (max-width: 750px) {
+        width: 100%;
+        float: none;
+    }
+}

@@ -1,8 +1,8 @@
 
 module.exports = function(grunt) {
     
-    var path = 'dev/script/';
-	var sourceFiles = [];
+    var path = 'dev/scripts/';
+	var sourceFiles = ['main.js'];
 
 	//config
 	grunt.initConfig({
@@ -12,7 +12,9 @@ module.exports = function(grunt) {
 				options: {                       // Target options
 					style: 'compact'				},
 				files : {
-					'app/css/main.css' : 'dev/styles/main.scss'
+					'app/css/main.css' : 'dev/styles/main.scss',
+                    'app/css/maps.css' : 'dev/styles/maps.scss',
+                    'app/css/contribute.css' : 'dev/styles/contribute.scss'
 				}
 			}
 		},
@@ -25,7 +27,7 @@ module.exports = function(grunt) {
 			},
 			dist : {
 				src : sourceFiles,
-				dest : 'dev/srcipt/script.js'
+				dest : 'dev/script/script.js'
 			}
 		},
 		uglify: {
@@ -34,31 +36,25 @@ module.exports = function(grunt) {
                 'app/script.min.js': '<%= concat.dist.dest %>'
                 }
             }
-		}
-//        ,
-//        'ftp-deploy' : {
-//            build : {
-//                auth : {
-//                    host : 'ftp.anthonyladson.com',
-//                    port : 21,
-//                    authKey : "key1"
-//                },
-//                src : 'game',
-//                dest : 'quintessence',
-//                exclusions : ['.*']
-//            }
-//        }
+		},
+        copy: {
+          main: {
+            expand: true,
+            cwd: 'dev/scripts/',
+            src: ['**'], 
+            dest: 'app/scripts/',
+          }
+        }
 	});
 
 	//load task
 	grunt.loadNpmTasks('grunt-contrib-sass');
 	grunt.loadNpmTasks('grunt-contrib-concat');
 	grunt.loadNpmTasks('grunt-contrib-uglify');
-//	grunt.loadNpmTasks('grunt-ftp-deploy');
+    grunt.loadNpmTasks('grunt-contrib-copy');
 
 	//register task
-	grunt.registerTask('default', ['sass','concat','uglify']);
 	grunt.registerTask('css',['sass']);
-//	grunt.registerTask('deploy',['default','ftp-deploy']);
+	grunt.registerTask('dev',['css','copy']);
 
 };

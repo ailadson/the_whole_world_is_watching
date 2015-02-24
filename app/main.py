@@ -9,8 +9,7 @@ import cgi
 import uuid
 import json
 # import MySQLdb
-from google.appengine.ext import blobstore
-from google.appengine.ext.webapp import blobstore_handlers
+
 # from webapp2_extras import sessions
 # import database
 import routes
@@ -24,5 +23,7 @@ session_config['webapp2_extras.sessions'] = {
 }
 
 application = webapp2.WSGIApplication([
-    ('/', routes.MainPage)
-    ], debug=True, config=session_config)
+    ('/', routes.MainPage),
+    ('/upload1', routes.UploadFormHandler1),
+    ('/upload2', routes.UploadFormHandler2)
+], debug=True, config=session_config)

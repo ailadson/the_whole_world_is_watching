@@ -42,37 +42,66 @@
     <img src="imgs/defaultMarker.png"> Other Interactions<br>
 </div>
 
+{% if dev_mode %}
+<script type="text/javascript" src="scripts/main.js"></script>
+{% else %}
+<script type="text/javascript" src="scripts/main.min.js"></script>
+{% endif %}
 
 {% if results %}
 <script>
-    PP.SERVER_OPTS = {};
-    PP.SERVER_OPTS['results'] = {{ results|safe }}.records;
+    WWWATCH.SERVER_OPTS = {};
+    WWWATCH.SERVER_OPTS['results'] = {{ results|safe }}.records;
     
-    for(var i = 0; i < PP.SERVER_OPTS.results.length; i += 1){
-        var record = PP.SERVER_OPTS.results[i]
+    for(var i = 0; i < WWWATCH.SERVER_OPTS.results.length; i += 1){
+        var record = WWWATCH.SERVER_OPTS.results[i]
 
         if(record.id == {{ choiceID }}){
-            PP.SERVER_OPTS['lat'] = record.lat;
-            PP.SERVER_OPTS['lng'] = record.lng;
-            PP.SERVER_OPTS['zoom'] = 22;
+            WWWATCH.SERVER_OPTS['lat'] = record.lat;
+            WWWATCH.SERVER_OPTS['lng'] = record.lng;
+            WWWATCH.SERVER_OPTS['zoom'] = 22;
             break;
         }
     }
     
-    PP.SERVER_OPTS['lat'] = PP.SERVER_OPTS['lat'] || 40.477418;
-    PP.SERVER_OPTS['lng'] = PP.SERVER_OPTS['lng'] || -98.441178;
+    WWWATCH.SERVER_OPTS['lat'] = WWWATCH.SERVER_OPTS['lat'] || 40.477418;
+    WWWATCH.SERVER_OPTS['lng'] = WWWATCH.SERVER_OPTS['lng'] || -98.441178;
 </script>
 {% elif latlng %}
     <script>
-        PP.SERVER_OPTS = {};
-        PP.SERVER_OPTS['lat'] = parseFloat("{{ latlng }}".split(',')[0]);
-        PP.SERVER_OPTS['lng'] = parseFloat("{{ latlng }}".split(',')[1]);
+        WWWATCH.SERVER_OPTS = {};
+        WWWATCH.SERVER_OPTS['lat'] = parseFloat("{{ latlng }}".split(',')[0]);
+        WWWATCH.SERVER_OPTS['lng'] = parseFloat("{{ latlng }}".split(',')[1]);
     </script>
 {% else %}
     <script>
-        PP.SERVER_OPTS = {};
-        PP.SERVER_OPTS['lat'] = 40.477418;
-        PP.SERVER_OPTS['lng'] = -98.441178;
+        WWWATCH.SERVER_OPTS = {};
+        WWWATCH.SERVER_OPTS['lat'] = 40.477418;
+        WWWATCH.SERVER_OPTS['lng'] = -98.441178;
     </script>
 {% endif %}
+
+<script>
+    //page loading...set cursor
+    document.body.style.cursor = "wait";
+
+    //add event listeners
+//    document.getElementById("blanket").addEventListener("click", function () {
+//        "use strict";
+//        WWWATCH.Video.hideVideo();
+//    });
+//
+//    document.getElementById("videoClose").addEventListener("click", function () {
+//        "use strict";
+//        WWWATCH.Video.hideVideo();
+//    });
+
+    window.onload = function () {
+        "use strict";
+//        WWWATCH.Video.hideVideo();
+
+//        WWWATCH.RecManager = new WWWATCH.RecordManager();
+        WWWATCH.startMap(WWWATCH.RecManager,WWWATCH.SERVER_OPTS);
+    };
+</script>
 

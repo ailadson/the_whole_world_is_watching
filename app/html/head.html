@@ -7,9 +7,16 @@
     
     {% if bt == '' %}
         <link href="css/maps.css" type="text/css" rel="stylesheet">
+    {% elif  bt == 'contrib' or bt == 'upload'%}
+        <link href="css/contribute.css" type="text/css" rel="stylesheet">
     {% endif %}
     
     <script type="text/javascript" 
             src="https://maps.googleapis.com/maps/api/js?&libraries=places&key=AIzaSyBUTRJTjJMPLvl8LVfAgAuPPYHZHZ32G94">
     </script>
+<!--
+    <script>
+    document.write('<script src="//sharebutton.net/plugin/sharebutton.php?type=vertical&u=' + encodeURIComponent(document.location.href) + '"></scr' + 'ipt>');
+    </script>
+-->
 </head>

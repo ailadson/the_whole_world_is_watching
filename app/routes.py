@@ -1,6 +1,9 @@
 import jinja2
 import os
 from baseHandler import BaseHandler
+from uploadHandler import UploadFormHandler1, UploadFormHandler2 
+
+DEV_MODE = True
 
 jinja = jinja2.Environment(autoescape=True,
                            loader=jinja2.FileSystemLoader(os.path.join(os.path.dirname(__file__))))
@@ -11,25 +14,26 @@ class MainPage(BaseHandler):
         body_type = self.request.get('body')
         body_dict = {
             '': 'maps.html',
-            'contrib': 'contrib.htm',
-            'upload': 'upload.htm',
-            'upload1': 'upload1.htm',
-            'upload2': 'upload2.htm',
+            'vid' : 'video.html',
+            'contrib': 'contribute.html',
+            'upload': 'upload.html',
             'search': 'search.htm',
-            'about': 'about.htm'
+            'about': 'about.html'
         }
 
         if self.request.get('search') == '1':
             body_values = {
                 'cd': '',
                 'results': self.session.get('results'),
-                'choiceID': self.request.get('id')
+                'choiceID': self.request.get('id'),
+                'dev_mode' : DEV_MODE
             }
             print(self.session.get('results'))
         else:
             body_values = {
                 'cd': '',
-                'latlng': self.request.headers.get("X-AppEngine-CityLatLong")
+                'latlng': self.request.headers.get("X-AppEngine-CityLatLong"),
+                'dev_mode' : DEV_MODE
             }
 
         top = jinja.get_template('html/top.html')
