@@ -1,22 +1,8 @@
 from google.appengine.ext import db
 
 class Record(db.Model):
-    id = db.StringProperty(required=True)
-    created = db.DateTimeProperty()
-    user = db.UserProperty()
-    date = db.DateProperty()
-    firstName = db.StringProperty()
-    lastName = db.StringProperty()
-    ethnicity = db.StringProperty()
-    gender = db.StringProperty()
-    age = db.IntegerProperty()
-    ability = db.BooleanProperty()
-    oFirstName = db.StringProperty()
-    oLastName = db.StringProperty()
-    badge = db.StringProperty()
-    oRace = db.StringProperty()
-    dept = db.StringProperty()
-    about = db.TextProperty()
+    #required standard7
+    #required location
     lat = db.FloatProperty()
     lng = db.FloatProperty()
     country = db.StringProperty()
@@ -25,14 +11,60 @@ class Record(db.Model):
     city = db.StringProperty()
     neighborhood = db.StringProperty()
     zipCode = db.StringProperty()
-    brutal = db.StringProperty()
+    
+    #REST OPTIONAL
+    #standard data
+    user = db.UserProperty()
+    date = db.DateProperty()
+    
+    #arrested data
+    firstName = db.StringProperty()
+    lastName = db.StringProperty()
+    ethnicity = db.StringProperty()
+    gender = db.StringProperty()
+    age = db.IntegerProperty()
+    ability = db.BooleanProperty()
+    charged = db.BooleanProperty()
+    chargedWith = db.StringProperty()
+    convicted = db.BooleanProperty()
+    
+    #officer data
+    oFirstName = db.StringProperty()
+    oLastName = db.StringProperty()
+    badge = db.StringProperty()
+    oRace = db.StringProperty()
+    dept = db.StringProperty()
+    oCharged = db.BooleanProperty()
+    oChargedWith = db.StringProperty()
+    oConvicted = db.BooleanProperty()
+    
+    #incident data
+    about = db.TextProperty()
+    brutal = db.BooleanProperty()
     fatal = db.BooleanProperty()
     wrongful = db.BooleanProperty()
     interaction = db.BooleanProperty()
+    
+    #meta data
     promoted = db.IntegerProperty()
-    flagged = db.BooleanProperty()
-    raw = db.StringProperty()
-    webm = db.StringProperty()
-    ogg = db.StringProperty()
-    mp4 = db.StringProperty()
+    encoded = db.BooleanProperty()
     views = db.IntegerProperty()
+    flagged = db.BooleanProperty()
+    flagReason = db.StringProperty()
+    
+
+#--------------------------------------------------#
+
+class ModerateRecord(db.Model):
+    #required standard
+    id = db.StringProperty(required=True)
+    approved = db.BooleanProperty()
+    flagReason = db.StringProperty()
+    approvedBy = db.StringListProperty()
+    rejectedBy = db.StringListProperty()
+    data = db.TextProperty()
+    
+    
+    
+    
+    

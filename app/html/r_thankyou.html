@@ -1,0 +1,13 @@
+<center>
+    <p>
+        Your video has been submitted. 
+        <br><br> 
+        To add more data to the video, please enter an email or mobile phone number below. <br> We will send you instructions.
+    </p>
+    <form action="rconfrim" method="POST" enctype="multipart/form-data">
+        <input type="email" name="email "placeholder="your@email.com"> &nbsp;&nbsp;or&nbsp;&nbsp; <input type="tel" name="phone" placeholder="777-777-7777">
+        <br><br>
+        <input type="hidden" name="id" value="{{ id }}">
+        <input type="submit" name="submit" value="Submit">
+    </form>
+</center>

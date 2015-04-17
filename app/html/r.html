@@ -1,0 +1,71 @@
+<style>
+    #fileInputDiv {
+        width: 100px;
+        height: 100px;
+        background: url(../imgs/recordBtn.png);
+        background-repeat: no-repeat;
+        background-size: cover;
+        overflow: hidden;
+        cursor: pointer;
+        margin-top: 3.5em;
+    }
+
+    #fileInputDiv input{
+        display: block !important;
+        width: 100px !important;
+        height: 100px !important;
+        opacity: 0 !important;
+        overflow: hidden !important;
+        cursor: pointer;
+    }
+    
+    .center {
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    @media all and (max-width:760px) {
+        #mssg {
+            display: none;
+        }
+    }
+</style>
+<div>
+    <form action="r" method="POST" enctype="multipart/form-data" id='form'>
+        <div id="fileInputDiv" class='center'>
+            <input class="uploadInput"
+                type="file" 
+                name="file"
+                id="file"
+                onchange='handleUpload()'
+                accept="video/*" capture="camcorder">
+        </div>
+        <div class='center' style="width:3.4em;" id="rBtn">Record</div>
+        <input type="hidden" name="date" id="date">
+    </form>
+    <p id="mssg" style="text-align:center;">This feature works only in mobile devices that have a video camera app.</p>
+</div>
+<script>
+    
+    form = document.getElementById("form");
+    file = document.getElementById("file");
+    date = document.getElementById("date");
+    
+    date.value = new Date().toISOString().split("T")[0];
+    
+    form.addEventListener('progress', function(e){
+        progress.innerHTML = console.log((e.loaded/e.total) * 100);
+    });
+
+    
+    function handleUpload(){
+        form.submit();
+        document.getElementById('rBtn').innerHTML = "Uploading...";
+//        setTimeout(function(){
+//            document.getElementById('rBtn').innerHTML = "Still Uploading";
+//        }, 5000);
+    }
+        
+       
+
+</script>

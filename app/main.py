@@ -23,7 +23,10 @@ session_config['webapp2_extras.sessions'] = {
 }
 
 application = webapp2.WSGIApplication([
+    ('/r', routes.QuickRecord),
     ('/', routes.MainPage),
-    ('/upload1', routes.UploadFormHandler1),
-    ('/upload2', routes.UploadFormHandler2)
+    ('/upload', routes.UploadFormHandler),
+    ('/upload2', routes.UploadFormHandler2),
+    ('/getFileUploadEndpoint', routes.FileUploadEndpointHandler),
+    ('/encoded', routes.EncoderHandler),
 ], debug=True, config=session_config)

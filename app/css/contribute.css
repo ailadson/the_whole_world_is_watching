@@ -1,9 +1,9 @@
-@media all and (max-width: 750px) { label { display: block; }
+@media all and (max-width: 1160px) { label { display: block; }
   .upload1Contain input { width: 96%; } }
 @media all and (max-width: 450px) { h4 { margin: 0px; border-bottom: 1px solid black; padding: 5px; background-color: #FEFEFA; cursor: pointer; }
   label { padding-top: 10px; padding-left: 10px; }
   .uploadSection { display: none; background-color: #e2e2d9; }
-  #submit { padding: 10px; font-size: 1.5em; }
+  #submit { padding: 10px; font-size: 1.5em; border: 1px solid #e9e990; border-radius: 4px; background-color: white; }
   #file { background-color: #e2e2d9; }
   #fileHeader { display: block; } }
 /*
@@ -23,6 +23,14 @@
 
 #mapContrib { width: 50%; height: 100%; float: left; }
 @media all and (max-width: 750px) { #mapContrib { width: 100%; height: 100%; } }
+
+#fileInputDiv { width: 40px; height: 40px; background: url(../imgs/uploadBtn.png); background-repeat: no-repeat; background-size: cover; overflow: hidden; cursor: pointer; }
+
+#fileInputDiv input { display: block !important; width: 40px !important; height: 40px !important; opacity: 0 !important; overflow: hidden !important; cursor: pointer; }
+
+#fileUploadContain { width: 60%; margin-right: auto; margin-left: auto; }
+
+#fileUploadStatus { background-color: #e25050; padding: 10px; width: 100px; margin-top: 10px; font-size: 0.75em; border-radius: 3px; }
 
 .contribInput { margin-top: 4%; }
 
@@ -51,6 +59,8 @@
 
 .scrollBtn { display: none; }
 @media all and (max-width: 750px) { .scrollBtn { display: inline; } }
+
+#scroll-down { padding-bottom: 15px; }
 
 .scrollBtn p { margin: 0px; font-size: .75em; text-decoration: none; color: black; }
 

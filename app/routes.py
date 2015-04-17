@@ -1,7 +1,12 @@
 import jinja2
 import os
 from baseHandler import BaseHandler
-from uploadHandler import UploadFormHandler1, UploadFormHandler2 
+from uploadHandler import UploadFormHandler, UploadFormHandler2
+from fileUploadHandler import FileUploadEndpointHandler
+from encoderHandler import EncoderHandler
+import helpers
+import tasks
+
 
 DEV_MODE = True
 
@@ -28,7 +33,7 @@ class MainPage(BaseHandler):
                 'choiceID': self.request.get('id'),
                 'dev_mode' : DEV_MODE
             }
-            print(self.session.get('results'))
+           
         else:
             body_values = {
                 'cd': '',
@@ -47,3 +52,44 @@ class MainPage(BaseHandler):
         self.response.write(navBar.render())
         self.response.write(body.render(body_values))
         self.response.write(bottom.render())
+        
+
+class QuickRecord(BaseHandler):
+    def get(self):
+        top = jinja.get_template('html/top.html')
+        head = jinja.get_template('html/head.html')
+
+        body = jinja.get_template('html/r.html')
+        bottom = jinja.get_template('html/bottom.html')
+
+        self.response.write(top.render())
+        self.response.write(head.render({'bt': 'r'}))
+        self.response.write(body.render())
+        self.response.write(bottom.render())
+        
+    def post(self):
+        f = self.request.get("file")
+        
+        #get location or set some default
+        if self.request.headers.get("X-AppEngine-CityLatLong") is not None:
+            latlng = self.request.headers.get("X-AppEngine-CityLatLong").split(',')
+        else:
+            latlng = ['41.878114','-87.629798'] #FOR DEV PURPOSES!! CHANGE
+            
+        locData = helpers.createLocData(latlng[0],latlng[1])
+        record = helpers.createRecord(self.request.get,locData,f)
+        tasks.create(record)
+        id = record.id
+#        self.response.write(latlng)
+        top = jinja.get_template('html/top.html')
+        head = jinja.get_template('html/head.html')
+        navBar = jinja.get_template('html/navBar.html')
+        body = jinja.get_template('html/r_thankyou.html')
+        bottom = jinja.get_template('html/bottom.html')
+        
+        self.response.write(top.render())
+        self.response.write(head.render({'bt': 'r'}))
+        self.response.write(navBar.render())
+        self.response.write(body.render({'id': id}))
+        self.response.write(bottom.render())
+        

@@ -1,6 +1,6 @@
 @import 'variables';
 
-@media all and (max-width: 750px) {
+@media all and (max-width: 1160px) {
     label {
         display: block;
     }
@@ -8,6 +8,13 @@
         width: 96%;
     }
 }
+
+//@media all and (max-width: 1160px) {
+//    .upload1Contain span {
+//        display: block;
+//        float: none;
+//    }
+//}
 
 @media all and (max-width: 450px) {
     h4 {
@@ -31,6 +38,9 @@
     #submit {
         padding: 10px;
         font-size: 1.5em;
+        border: 1px solid darken($bgColor, 25%);
+        border-radius: 4px;
+        background-color: lighten($bgColor, 25%);
     }
     
     #file {
@@ -96,6 +106,41 @@
         height: 100%;
     }
     
+}
+
+#fileInputDiv {
+    width: 40px;
+    height: 40px;
+    background: url(../imgs/uploadBtn.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+#fileInputDiv input{
+    display: block !important;
+    width: 40px !important;
+    height: 40px !important;
+    opacity: 0 !important;
+    overflow: hidden !important;
+    cursor: pointer;
+}
+
+#fileUploadContain {
+    width: 60%;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+#fileUploadStatus {
+    background-color: #e25050;
+    padding: 10px;
+    width: 100px;
+//    display: inline;
+    margin-top: 10px;
+    font-size: 0.75em;
+    border-radius: 3px;
 }
 
 .contribInput {
@@ -177,6 +222,10 @@
     }
 }
 
+#scroll-down {
+    padding-bottom: 15px;
+}
+
 .scrollBtn p{
     margin: 0px;
     font-size: .75em;
@@ -211,4 +260,5 @@
         width: 100%;
         float: none;
     }
+    
 }

@@ -1,0 +1,5 @@
+queue:
+- name: videoEncodeQueue
+  mode: pull
+  acl:
+  - user_email: 890604567627-compute@developer.gserviceaccount.com

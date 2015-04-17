@@ -5,7 +5,8 @@
     <link href="css/main.css" type="text/css" rel="stylesheet">
     
     
-    {% if bt == '' %}
+    {% if bt == 'r' %}
+    {% elif bt == '' %}
         <link href="css/maps.css" type="text/css" rel="stylesheet">
     {% elif  bt == 'contrib' or bt == 'upload'%}
         <link href="css/contribute.css" type="text/css" rel="stylesheet">
@@ -13,6 +14,9 @@
     
     <script type="text/javascript" 
             src="https://maps.googleapis.com/maps/api/js?&libraries=places&key=AIzaSyBUTRJTjJMPLvl8LVfAgAuPPYHZHZ32G94">
+    </script>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js">
     </script>
 <!--
     <script>

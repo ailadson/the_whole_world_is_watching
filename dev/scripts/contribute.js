@@ -10,6 +10,32 @@ window.onload = function () {
     WWWATCH.startContributeMap();
 };
 
+document.getElementById('file').onchange = function(e){
+    WWWATCH.startUpload(document.getElementById('file').files[0]);
+};
+
+WWWATCH.startUpload = function(file){
+//    $.ajax({url: '/getFileUploadEndpoint', cache: false, success: function(data){
+//        console.log(data)
+//        var formData = new FormData();
+//        for(var n in data.params){
+//            formData.append(n, data.params[n]);
+//        }
+//        formData.append('file', file);
+//        var xhr = new XMLHttpRequest();
+//        xhr.upload.addEventListener('progress', function(evt){
+//            $('#fileStatusMark').text(evt.loaded+'/'+evt.total);
+//        });
+//        xhr.upload.addEventListener('load', function(evt){
+            document.getElementById('fileStatusMark').innerHTML ='&#10003;';
+            $('#fileStatusText').text('File');
+            $('#fileUploadStatus').css('background-color', '#50e252');
+//        });
+//        xhr.open(data.method, data.url);
+//        xhr.send(formData);
+//    }});
+};
+
 WWWATCH.startContributeMap = function () {
     "use strict";
     var map = new google.maps.Map(

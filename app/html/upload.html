@@ -1,9 +1,10 @@
 <div id="contrib" class = "player">
-    <form action="upload1" method="POST" enctype="multipart/form-data">
+    <form action="upload" method="POST" enctype="multipart/form-data">
         <input id="pac-input" class="controls" type="text" placeholder="Search Bar">
-        <a href="#innerContrib" id="scroll-down" class="scrollBtn"><img width="60" src="imgs/scrollDown.png"></a>
-        <span id="mapIntruct">Set incident location by clicking on map. Refine location by moving marker</span>
+        <a href="#innerContribSpan" id="scroll-down" class="scrollBtn"><img width="60" src="imgs/scrollDownMap.png"></a>
+        <span id="mapIntruct">Set incident location by clicking on map. Refine location by moving marker. Click arrow to move on once location is selected.</span>
         <div id="mapContrib"></div>
+        <span id="innerContribSpan"></span>
           <div id="innerContrib">
             <div style="margin-left: 2%;">
                 <h4>&nbsp;&nbsp;Submission Rules:</h4>
@@ -15,6 +16,19 @@
                     <li>On the next page, you can enter more information about the incident. The information provided will help classify the video and help people find it in 'Search'. However, because we are dedicated to the privacy of submitters, <b>all other info is optional</b>. No information about you is retained, unless you give permission.</li>
                 </ol>
             </div>
+            <hr>
+            <fieldset id="fileUploadContain">
+                <legend>Upload Video File</legend>
+                    <center>
+                        <div id="fileInputDiv">
+                            <input class="uploadInput"
+                                    type="file" 
+                                    name="file"
+                                   id="file">
+                        </div>
+                        <div id="fileUploadStatus"><span id="fileStatusMark" style="font-size:1em;float:left;">X</span><span id="fileStatusText">No File</span></div>
+                </center>
+              </fieldset>
             <div class="uploadContain">
                 <center><u><b>Date</b></u><br></center>
                 <center><input class="contribInput"
@@ -65,15 +79,143 @@
                                   placeholder="USE MAP"
                                  readonly>
             </div>
-            <center><a href="#mapContrib" class="scrollBtn">
-                <img src="imgs/scrollUp.png" width="60"><br>
-                <p id="scrollText">Click to go back to map</p>
-            </a></center>
             <br>
-            <span class="uploadContain">
-                <input type="submit" name="Submit" value="Next Page" onClick="return checkEmpty()">
-            </span>
-            <br><br>
+            <br>
+            <hr>
+            <center>all other input fields are optional</center>
+            <hr>
+            <center><h4 id="theincidentH">THE INCIDENT</h4></center>
+            <div id="theincident" class="uploadSection">
+            <div class="upload1Contain">
+                <label for="aboutInput">About</label>
+                <textarea class="uploadInput" 
+                            id="aboutInput"
+                            name="about"
+                            wrap="soft"
+                            rows=6></textarea>
+            </div>
+            </div>
+                
+            <center><h4 id="personarrestedH">PERSON BEING ARRESTED</h4></center>
+            <div id="personarrested" class="uploadSection">
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label>First Name:</label> <input class="uploadInput" 
+                                       type="text" 
+                                       name="firstName">
+                </span>
+                <span class="rightSide">
+                    <label>Last Name:</label> <input class="uploadInput" 
+                                           type="text" 
+                                           name="lastName">
+                </span>
+            </div>
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label>Ethnicity:</label> <select class="uploadInput"
+                                            name="ethnicity">
+                                        <option value=null></option>
+                                        <option value="asian">Asian</option>
+                                        <option value="black">Black</option>
+                                        <option value="latin">Hispanic/Latin</option>
+                                        <option value="indian">Indian</option>
+                                        <option value="middleEastern">Middle Eastern</option>
+                                        <option value="nativeAmerican">Native American</option>
+                                        <option value="pacificIslander">Pacific Islander</option>
+                                        <option value="white">White</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                </span>
+                <span class="rightSide">
+                    <label>Gender:</label> <select class="uploadInput"
+                                            name="gender">
+                                        <option value=null></option>
+                                        <option value="cWoman">(cis) Woman</option>
+                                        <option value="cMan">(cis) Man</option>
+                                        <option value="tWoman">(trans) Woman</option>
+                                        <option value="tMan">(trans) Man</option>
+                                        <option value="nonconform">Non-Conforming</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                </span>    
+            </div>
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label>Disabled: </label> <input class="uploadInput"
+                                                     type="checkbox"
+                                                     name="ability"> 
+                </span>
+                <span class="rightSide">
+                    <label>Age:</label> <input class="uploadInput" 
+                                type="number" 
+                                name="age">
+                </span>
+            </div>
+            </div>
+            <center><h4 id="arrestingOfficerH">ARRESTING OFFICER</h4></center>
+            <div id="arrestingOfficer" class="uploadSection">
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label for="oFirstName">First Name:</label> <input class="uploadInput" 
+                                            type="text" 
+                                            name="oFirstName">
+                </span>
+                <span class="rightSide">
+                    <label for="oLastName">Last Name:</label> <input class="uploadInput" 
+                                            type="text" 
+                                            name="oLastName">
+                </span>
+            </div>
+            <br>
+            <div class="upload1Contain">
+                <span class="leftSide">
+                    <label>Badge Number:</label> <input class="uploadInput"
+                                        type="text"
+                                        name="badge">
+                </span>
+                <span class="rightSide">
+                    <label>Department:</label> <input class="uploadInput"
+                                            type="text"
+                                            name="dept">
+                </span>
+            </div>
+            <br>
+            <div class="upload1Contain">
+                <label>Race of Officer:</label> <select class="uploadInput"
+                                        name="oRace">
+                                    <option value=null></option>
+                                    <option value="asian">Asian</option>
+                                    <option value="black">Black</option>
+                                    <option value="latin">Hispanic/Latin</option>
+                                    <option value="indian">Indian</option>
+                                    <option value="middleEastern">Middle Eastern</option>
+                                    <option value="nativeAmerican">Native American</option>
+                                    <option value="pacificIslander">Pacific Islander</option>
+                                    <option value="white">White</option>
+                                    <option value="other">Other</option>
+                                </select>
+            </div>
+            </div>
+            <br>
+                <center>
+                    <a href="#mapContrib" class="scrollBtn">
+                    <img src="imgs/scrollUp.png" width="60"><br>
+                    <p id="scrollText">Click to go back to map</p>
+                    </a>
+              </center>
+            <div>
+                <br>
+                <center>
+                    <input type="submit" 
+                           id="submit"
+                           name="Submit" 
+                           value="Submit">
+                </center>
+                <br>
+            </div>
+        </div>
+        
+        
         </div>
     </form>
     

@@ -1,19 +1,23 @@
 from google.appengine.api import urlfetch
 import json
 import uuid
+import mimetypes
+import os
 import datetime
 import dateutil.parser
+import cloudstorage as gcs
 from datastore import Record
 from google.appengine.ext import db
+from google.appengine.api import app_identity
 
 
-def createLocData(postData):
+def createLocData(lat,lng):
     locData = {}
-    lat = postData("lat")
-    lng = postData("lng")
+    locData["lat"] = float(lat)
+    locData["lng"] = float(lng)
     url = "https://maps.googleapis.com/maps/api/geocode/json?latlng="+lat+","+lng
-    jData = urlfetch.fetch(url=url,follow_redirects = False).content
-    data = json.loads(jData)
+    jsonData = urlfetch.fetch(url=url,follow_redirects = False).content
+    data = json.loads(jsonData)
     components = data['results'][0]['address_components']
     check = {
         "neighborhood":"neighborhood",
@@ -28,64 +32,80 @@ def createLocData(postData):
         if component['types'][0] in check:
             locData[check[component['types'][0]]] = component['long_name']
             
+    for key in check.values():
+        if key in locData.keys(): pass
+        else:
+            locData[key] = ""
+            
     return locData
 
 #--------------------------------------
-
-def createRecord(postData,locationData,filename,type):
-    vidRecord = Record(id=str(uuid.uuid4().int))
+def createGCSObject(f, name):
+    my_default_retry_params = gcs.RetryParams(initial_delay=0.2,
+                                          max_delay=5.0,
+                                          backoff_factor=2,
+                                          max_retry_period=15)
+    gcs.set_default_retry_params(my_default_retry_params)
     
-    vidRecord.created = datetime.datetime.today()
-    #TO DO vidRecord.user
-    print(dateutil.parser.parse(postData("date")).date())
-    vidRecord.date = dateutil.parser.parse(postData("date")).date()
-    if postData("firstName"):
-        vidRecord.firstName = postData("firstName") 
-    if postData("lastName"):
-        vidRecord.lastName = postData("lastName") 
-    if postData("race"):
-        vidRecord.ethnicity = postData("ethnicity")
-    if postData("ability") == 'on':
-        vidRecord.ability = True       
-    if postData("age"):
-        vidRecord.age = int(postData("age"))   
-    if postData("gender"):
-        vidRecord.gender = postData("gender")
-    if postData("oFirstName"):
-        vidRecord.oFirstName = postData("oFirstName")
-    if postData("oLastName"):
-        vidRecordoLastName = postData("oLastName")
-    if postData("oRace"):
-        vidRecord.oRace = postData("oRace") 
-    if postData("dept"):
-        vidRecord.dept = postData("dept")
-    if postData("badge"):
-        vidRecord.badge = postData("badge")
-    if postData("about"):
-        vidRecord.about = db.Text(arg=postData("about"))
-    vidRecord.lat = float(postData("lat"))
-    vidRecord.lng = float(postData("lng"))
-    if "country" in locationData:
-        vidRecord.country = locationData["country"]
-    if "state" in locationData:
-        vidRecord.state = locationData["state"]
-    if "city" in locationData:
-        vidRecord.city = locationData["city"]
-    if "neighborhood" in locationData:
-        vidRecord.neighborhood = locationData["neighborhood"]
-    if "city_state" in locationData:
-        vidRecord.city_state = locationData["city_state"]
-    if "zipCode" in locationData:
-        print(locationData["zipCode"])
-        vidRecord.zipCode = locationData["zipCode"]
+    
+    filename = '/net_wwwatching/'+name
+    file = gcs.open(filename,mode='w',options={'x-goog-acl':'public-read'})
+    file.write(f)
+    file.close()
+
+def createRecord(postData,locationData,f):
+    
+    r = Record() #create record
+    r.id = str(uuid.uuid4().int)
+    r.created = datetime.datetime.today()
+    
+    #location data
+    r.lat = locationData["lat"]
+    r.lng = locationData["lng"]
+    r.country = locationData["country"]
+    r.state = locationData["state"]
+    r.city = locationData["city"]
+    r.neighborhood = locationData["neighborhood"]
+    r.city_state = locationData["city_state"]
+    r.zipCode = locationData["zipCode"]
+    
+#    r.user = "not implemented"
+    r.date = dateutil.parser.parse(postData("date")).date()
+    
+    if postData("firstName"): r.firstName = postData("firstName") 
+    if postData("lastName"): r.lastName = postData("lastName") 
+    if postData("race"): r.ethnicity = postData("ethnicity")
+    if postData("ability") == 'on': r.ability = True #change      
+    if postData("age"): r.age = int(postData("age"))   
+    if postData("gender"): r.gender = postData("gender")
+    if postData("charged") == 'on': r.charged = True
+    if postData("chargedWith"): r.chargedWith = postData("chargedWith")
+    if postData("convicted") == 'on': r.convicted = True
+        
+    if postData("oFirstName"): r.oFirstName = postData("oFirstName")
+    if postData("oLastName"): r.oLastName = postData("oLastName")
+    if postData("oRace"): r.oRace = postData("oRace") 
+    if postData("dept"): r.dept = postData("dept")
+    if postData("badge"): r.badge = postData("badge")
+        
+    if postData("about"): r.about = db.Text(arg=postData("about"))
     if postData("type") == 'brutal' :
-        vidRecord.brutal = True;
+        r.brutal = True;
     elif postData("type") == 'fatal' :
-        vidRecord.fatal = True;
+        r.fatal = True;
     elif postData("type") == 'wrongful' :
-        vidRecord.wrongful = True;
+        r.wrongful = True;
     elif postData("type") == 'interaction' :
-        vidRecord.interaction = True;    
-    vidRecord.promoted = 0
-    vidRecord.raw = filename
-    vidRecord.put()
+        r.interaction = True;
+        
+    r.views = 0
+    r.promoted = 0
+    r.encoded = False;
+    r.flagged = True;
+    r.flagReason = "NEW"
+    r.put()
+    
+    #create raw
+    createGCSObject(f, r.id+".raw")
+    
+    return r
