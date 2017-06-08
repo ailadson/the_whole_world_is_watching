@@ -1,0 +1,17 @@
+runtime: python27
+api_version: 1
+threadsafe: true
+
+handlers:
+- url: /
+  script: map.app
+
+- url: /search
+  script: search.app
+
+- url: /upload
+  script: upload.app
+
+libraries:
+- name: webapp2
+  version: latest
