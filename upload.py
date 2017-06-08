@@ -7,5 +7,5 @@ class UploadHandler(BaseHandler):
         self.response.write('Hello World!')
 
 app = webapp2.WSGIApplication([
-    ('/', MainPage),
+    ('/', UploadHandler),
 ], debug = True)
