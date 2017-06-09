@@ -1,10 +1,10 @@
-import webapp2
 from base_handler import BaseHandler
+import webapp2
 
 class MapHandler(BaseHandler):
     def get(self):
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write('Hello World!')
+        city = self.request.headers.get('X-AppEngine-City')
+        self.render('map', { 'city' : city })
 
 app = webapp2.WSGIApplication([
     ('/', MapHandler),

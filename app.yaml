@@ -3,8 +3,8 @@ api_version: 1
 threadsafe: true
 
 handlers:
-- url: /
-  script: map.app
+- url: /public
+  static_dir: public
 
 - url: /search
   script: search.app
@@ -12,6 +12,12 @@ handlers:
 - url: /upload
   script: upload.app
 
+- url: /
+  script: map.app
+
 libraries:
 - name: webapp2
+  version: latest
+  
+- name: jinja2
   version: latest
