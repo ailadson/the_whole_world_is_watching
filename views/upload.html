@@ -1,0 +1,130 @@
+{% include "views/header.html" %}
+
+<div>
+  <!-- left side -->
+  <div id="map">
+  </div>
+
+  <!-- right side -->
+  <form>
+
+    <section>
+      <h2>Required</h2>
+      <h3>Upload the file:<h3>
+      <input type="file" name='record[cloud_url]'/>
+
+      <h3>Select a Location (use map)<h3>
+        <div class="location-confirm">Use Current Location</div>
+      <h3>Tell us about the incident:</h3>
+      <textarea name="record[about]"></textarea>
+      <h3>What does the video depict? (Check all that apply):</h3>
+      <span>Docile Interaction</span> <input type="checkbox" name="record[type]" value="docile" />
+      <span>Physical Violence</span> <input type="checkbox" name="record[type]" value="brutal" />
+      <span>Fatal Encounter</span> <input type="checkbox" name="record[type]" value="fatal" />
+    </section>
+
+    <div class="upload-submit-container">
+      <input type="submit" value="Submit Now!" />
+    </div>
+
+    <section>
+      <h2>Optional</h2>
+
+      <h3>Who was confronted?</h3>
+      <div class="input-group">
+        <div class="upload-label">
+          <span>First Name:</span>
+          <input type="text" name="record[firstName]" />
+        </div>
+      <br/>
+        <div class="upload-label">
+          <span>Last Name:</span>
+          <input type="text" name="record[lastName]" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="upload-label">
+          <span>Race:</span>
+          <input type="text" name="record[race]" />
+        </div>
+      <br/>
+        <div class="upload-label">
+          <span>Gender:</span>
+          <input type="text" name="record[gender]" />
+        </div>
+      <br/>
+        <div class="upload-label">
+          <span>Ability:</span>
+          <input type="text" name="record[ability]" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="upload-label">
+          <span>Where they charged?</span>
+          <input type="text" name="record[charged]" />
+        </div>
+      <br/>
+        <div class="upload-label">
+          <span>If so, with what:</span>
+          <input type="text" name="record[chargedWith]" />
+        </div>
+      <br/>
+        <div class="upload-label">
+          <span>Where they convicted?</span>
+          <input type="text" name="record[convicted]" />
+        </div>
+      </div>
+
+      <h3>Tell us the officer:</h3>
+      <div class="input-group">
+        <div class="upload-label">
+          <span>First Name:</span>
+          <input type="text" name="record[officerFirstName]" />
+        </div>
+      <br/>
+        <div class="upload-label">
+          <span>Last Name:</span>
+          <input type="text" name="record[officerLastName]" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="upload-label">
+          <span>Race:</span>
+          <input type="text" name="record[officerRace]" />
+        </div>
+        <br/>
+        <div class="upload-label">
+          <span>Gender:</span>
+          <input type="text" name="record[officerGender]" />
+        </div>
+      </div>
+
+      <div class="input-group">
+        <div class="upload-label">
+          <span>Where they charged?</span>
+          <input type="text" name="record[officerCharged]" />
+        </div>
+      <br/>
+        <div class="upload-label">
+          <span>If so, with what:</span>
+          <input type="text" name="record[officerChargedWith]" />
+        </div>
+      <br/>
+        <div class="upload-label">
+          <span>Where they convicted?</span>
+          <input type="text" name="record[officerConvicted]" />
+        </div>
+      </div>
+    </section>
+
+    <div class="upload-submit-container">
+      <input type="submit" />
+    </div>
+  </form>
+</div>
+
+<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ MAPS_API_KEY }}&callback=initMap">
+</script>

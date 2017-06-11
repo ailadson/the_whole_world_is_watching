@@ -1,11 +1,15 @@
 import webapp2
 from base_handler import BaseHandler
+from keys import MAPS_API_KEY
 
 class UploadHandler(BaseHandler):
     def get(self):
-        self.response.headers['Content-Type'] = 'text/plain'
-        self.response.write('Hello World!')
+        self.response.headers['Content-Type'] = 'text/html'
+        self.render('upload', { 'MAPS_API_KEY' : MAPS_API_KEY })
+
+    def post(self):
+        pass
 
 app = webapp2.WSGIApplication([
-    ('/', UploadHandler),
+    ('/upload', UploadHandler),
 ], debug = True)
