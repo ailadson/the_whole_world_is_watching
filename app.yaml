@@ -6,14 +6,8 @@ handlers:
 - url: /public
   static_dir: public
 
-- url: /search
-  script: search.app
-
-- url: /upload
-  script: upload.app
-
-- url: /
-  script: map.app
+- url: /.*
+  script: router.app
 
 libraries:
 - name: webapp2
@@ -21,3 +15,27 @@ libraries:
 
 - name: jinja2
   version: latest
+
+- name: pycrypto
+  version: latest
+
+skip_files:
+- ^(.*/)?.*/assets/.*$
+- ^(.*/)?.*/build/.*$
+- ^(.*/)?.*/test/.*$
+- ^(.*/)?.*/templates/.*$
+- ^(.*/)?.*/node_modules/.*$
+
+- ^(assets/.*)
+- ^(build/.*)
+- ^(frontend/.*)
+- ^(test/.*)
+- ^(templates/.*)
+- ^(node_modules/.*)
+
+- ^(.*/)?#.*#$
+- ^(.*/)?.*~$
+- ^(.*/)?.*\.DS_Store$
+- ^(.*/)?.*\.py[co]$
+- ^(.*/)?.*/RCS/.*$
+- ^(.*/)?\..*$

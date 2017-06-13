@@ -6,12 +6,12 @@
   </div>
 
   <!-- right side -->
-  <form>
+  <form method="post" action="/upload">
 
     <section>
       <h2>Required</h2>
       <h3>Upload the file:<h3>
-      <input type="file" name='record[cloud_url]'/>
+      <input type="file" name='record[cloud_url]' id="file-input"/>
 
       <h3>Select a Location (use map)<h3>
         <div class="location-confirm">Use Current Location</div>
@@ -24,7 +24,7 @@
     </section>
 
     <div class="upload-submit-container">
-      <input type="submit" value="Submit Now!" />
+      <input type="submit" value="Submit Now!" id="required-submit-btn"/>
     </div>
 
     <section>
@@ -121,10 +121,16 @@
     </section>
 
     <div class="upload-submit-container">
-      <input type="submit" />
+      <input type="submit" id='optional-submit-btn'/>
     </div>
   </form>
 </div>
 
+<script>
+  if (window.PBVD === undefined){
+    window.PBVD = {};
+  }
+  window.PBVD.file_upload_endpoint = JSON.parse('{{ file_upload_endpoint | safe }}');
+</script>
 <script async defer src="https://maps.googleapis.com/maps/api/js?key={{ MAPS_API_KEY }}&callback=initMap">
 </script>

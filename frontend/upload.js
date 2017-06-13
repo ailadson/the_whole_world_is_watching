@@ -1,6 +1,7 @@
 import '../style/upload.scss';
-
 import './header.js';
+import './upload_form/file.js';
+import './upload_form/submit.js'; 
 
 function initMap(){
   var map = new google.maps.Map(document.getElementById('map'), {

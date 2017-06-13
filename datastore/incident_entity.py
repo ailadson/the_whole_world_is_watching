@@ -1,6 +1,6 @@
 from google.appengine.ext import ndb
 
-class Record(ndb.Model):
+class IncidentEntity(ndb.Model):
     #required location
     lat = ndb.FloatProperty()
     lng = ndb.FloatProperty()
@@ -45,9 +45,13 @@ class Record(ndb.Model):
     fatal = ndb.BooleanProperty()
     docile = ndb.BooleanProperty()
 
+    #stage
+    has_encoded = ndb.BooleanProperty()
+    has_required_data = ndb.BooleanProperty()
+    has_optional_data = ndb.BooleanProperty()
+
     #meta data
     promoted = ndb.IntegerProperty()
-    encoded = ndb.BooleanProperty()
     views = ndb.IntegerProperty()
     flagged = ndb.BooleanProperty()
     flagReason = ndb.StringProperty()
