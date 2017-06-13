@@ -12,10 +12,10 @@ class IncidentEntity(ndb.Model):
     zipCode = ndb.StringProperty()
 
     #upload data
-    user_ip = ndb.StringProperty()
+    upload_ip = ndb.StringProperty(required=True)
     user_email = ndb.StringProperty()
     date = ndb.DateProperty(auto_now_add=True)
-    cloud_url = ndb.StringProperty()
+    cloud_id = ndb.StringProperty(required=True)
 
     #arrested data
     firstName = ndb.StringProperty()
@@ -46,12 +46,10 @@ class IncidentEntity(ndb.Model):
     docile = ndb.BooleanProperty()
 
     #stage
-    has_encoded = ndb.BooleanProperty()
-    has_required_data = ndb.BooleanProperty()
-    has_optional_data = ndb.BooleanProperty()
+    has_encoded_files = ndb.BooleanProperty(default=False)
+    has_required_data = ndb.BooleanProperty(default=False)
+    has_optional_data = ndb.BooleanProperty(default=False)
 
     #meta data
-    promoted = ndb.IntegerProperty()
-    views = ndb.IntegerProperty()
-    flagged = ndb.BooleanProperty()
-    flagReason = ndb.StringProperty()
+    promoted = ndb.IntegerProperty(default=0)
+    views = ndb.IntegerProperty(default=0)

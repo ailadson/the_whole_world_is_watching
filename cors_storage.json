@@ -1,6 +1,6 @@
 [
     {
-      "origin": ["http://whole-world-is-watching.appspot.com"],
+      "origin": ["https://whole-world-is-watching.appspot.com/upload"],
       "responseHeader": ["Content-Type", "Content-MD5"],
       "method": ["PUT"],
       "maxAgeSeconds": 3600
