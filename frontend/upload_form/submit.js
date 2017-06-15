@@ -1,22 +1,32 @@
-const SUBMIT_BTNS = {
-  // vidfile : 'vidfile-submit-btn',
-  required : 'required-submit-btn',
-  optional : 'optional-submit-btn'
-}
+import { requiredInputUpload, optionalInputUpload } from './api_util';
 
+const SUBMIT_BTNS = [
+  // vidfile : 'vidfile-submit-btn',
+  'required',
+  'optional'
+]
+
+let inputType = null;
 let form = document.querySelector('form');
 
-for (let key in SUBMIT_BTNS) {
-  if (SUBMIT_BTNS.hasOwnProperty(key)) {
-    let id = SUBMIT_BTNS[key];
-    let btn = document.querySelector(`#${id}`);
-    btn.addEventListener('click', (e) => {
-      console.log('btn, first.');
-    });
-  }
-}
+SUBMIT_BTNS.forEach(key => {
+  let id = `${key}-submit-btn`;
+  let btn = document.querySelector(`#${id}`);
+  btn.addEventListener('click', (e) => {
+    inputType = key;
+  });
+});
 
 form.addEventListener('submit', (e) => {
-  console.log('form, first.');
   e.preventDefault();
+  if (inputType === 'required') {
+    requiredInputUpload(form, (req) => {
+      console.log("REQUIRED DATA UPLOADED");
+    });
+  } else if (inputType === 'optional'){
+    optionalInputUpload(form, (req) => {
+      console.log("OPTIONAL DATA UPLOADED");
+      window.location.href = `${window.location.origin}?thankyou=1`;
+    });
+  }
 });

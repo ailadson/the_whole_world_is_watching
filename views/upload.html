@@ -2,7 +2,9 @@
 
 <div>
   <!-- left side -->
-  <div id="map">
+  <div class='map-container'>
+    <input id="pac-input" class="controls" type="text" placeholder="Search Box">
+    <div id="map"></div>
   </div>
 
   <!-- right side -->
@@ -11,18 +13,18 @@
     <section>
       <h2>Required</h2>
       <h3>Upload the file:<h3>
-      <input type="file" name='record[cloud_url]' id="file-input"/>
-
+      <input type="file" name='file' id="file-input"/>
+      <input type="hidden" name='incident[cloud_id]' id="hidden-file-input"/>
       <h3>Select a Location (use map)<h3>
         <div class="location-confirm">Use Current Location</div>
-        <input type="hidden" name='record[lat]' id="lat-input"/>
-        <input type="hidden" name='record[lng]' id="lng-input"/>
+        <input type="text" name='incident[lat]' id="lat-input"/>
+        <input type="text" name='incident[lng]' id="lng-input"/>
       <h3>Tell us about the incident:</h3>
-      <textarea name="record[about]"></textarea>
+      <textarea name="incident[about]"></textarea>
       <h3>What does the video depict? (Check all that apply):</h3>
-      <span>Docile Interaction</span> <input type="checkbox" name="record[type]" value="docile" />
-      <span>Physical Violence</span> <input type="checkbox" name="record[type]" value="brutal" />
-      <span>Fatal Encounter</span> <input type="checkbox" name="record[type]" value="fatal" />
+      <span>Docile Interaction</span> <input type="checkbox" name="incident[type]" value="docile" />
+      <span>Physical Violence</span> <input type="checkbox" name="incident[type]" value="brutal" />
+      <span>Fatal Encounter</span> <input type="checkbox" name="incident[type]" value="fatal" />
     </section>
 
     <div class="upload-submit-container">
@@ -32,50 +34,88 @@
     <section>
       <h2>Optional</h2>
 
+      <div class="input-group">
+        <div class="upload-label">
+          <span>
+            When did this confrontation occur?
+          </span>
+          <input type="date" name="incident[date]" />
+        </div>
+      </div>
+
       <h3>Who was confronted?</h3>
       <div class="input-group">
         <div class="upload-label">
           <span>First Name:</span>
-          <input type="text" name="record[firstName]" />
+          <input type="text" name="incident[firstName]" />
         </div>
       <br/>
         <div class="upload-label">
           <span>Last Name:</span>
-          <input type="text" name="record[lastName]" />
+          <input type="text" name="incident[lastName]" />
         </div>
       </div>
 
       <div class="input-group">
         <div class="upload-label">
           <span>Race:</span>
-          <input type="text" name="record[race]" />
+          <select type="text" name="incident[race]">
+            <option value="non-disclosed">Unknown / Prefer not to disclose</option>
+            <option value="white">White</option>
+            <option value="hispanic">Hispanic / Latino</option>
+            <option value="black">Black / African American</option>
+            <option value="native">Native American / American Indian</option>
+            <option value="asian">Asian / Pacific Islander</option>
+            <option value="other">Other</option>
+          </select>
         </div>
       <br/>
         <div class="upload-label">
           <span>Gender:</span>
-          <input type="text" name="record[gender]" />
+          <select name="incident[gender]" />
+            <option value="non-disclosed">Unknown / Prefer not to disclose</option>
+            <option value="man">Man</option>
+            <option value="woman">Woman</option>
+            <option value="trans-man">Trans Man</option>
+            <option value="trans-woman">Trans Woman</option>
+            <option value="non-binary">Non-Binary/Gender Queer</option>
+          </select>
         </div>
       <br/>
         <div class="upload-label">
-          <span>Ability:</span>
-          <input type="text" name="record[ability]" />
+          <span>Age:</span>
+          <input type="number" name="incident[age]"/>
         </div>
+        <br/>
+          <div class="upload-label">
+            <span>Disablility:</span>
+            <br/>
+            Yes: <input type="radio" name="incident[disablility]" value="yes"/>
+            <br/>
+            No: <input type="radio" name="incident[disablility]" value="no"/>
+          </div>
       </div>
 
       <div class="input-group">
         <div class="upload-label">
           <span>Where they charged?</span>
-          <input type="text" name="record[charged]" />
+          <br/>
+          Yes: <input type="radio" name="incident[charged]" value="yes"/>
+          <br/>
+          No: <input type="radio" name="incident[charged]" value="no"/>
         </div>
       <br/>
         <div class="upload-label">
           <span>If so, with what:</span>
-          <input type="text" name="record[chargedWith]" />
+          <input type="text" name="incident[chargedWith]" />
         </div>
       <br/>
         <div class="upload-label">
           <span>Where they convicted?</span>
-          <input type="text" name="record[convicted]" />
+          <br/>
+          Yes: <input type="radio" name="incident[convicted]" value="yes"/>
+          <br/>
+          No: <input type="radio" name="incident[convicted]" value="no"/>
         </div>
       </div>
 
@@ -83,41 +123,74 @@
       <div class="input-group">
         <div class="upload-label">
           <span>First Name:</span>
-          <input type="text" name="record[officerFirstName]" />
+          <input type="text" name="incident[officerFirstName]" />
         </div>
       <br/>
         <div class="upload-label">
           <span>Last Name:</span>
-          <input type="text" name="record[officerLastName]" />
+          <input type="text" name="incident[officerLastName]" />
         </div>
       </div>
 
       <div class="input-group">
         <div class="upload-label">
           <span>Race:</span>
-          <input type="text" name="record[officerRace]" />
+          <select type="text" name="incident[officerRace]">
+            <option value="non-disclosed">Unknown / Prefer not to disclose</option>
+            <option value="white">White</option>
+            <option value="hispanic">Hispanic / Latino</option>
+            <option value="black">Black / African American</option>
+            <option value="native">Native American / American Indian</option>
+            <option value="asian">Asian / Pacific Islander</option>
+            <option value="other">Other</option>
+          </select>
         </div>
         <br/>
         <div class="upload-label">
           <span>Gender:</span>
-          <input type="text" name="record[officerGender]" />
+          <select name="incident[officerGender]" />
+            <option value="non-disclosed">Unknown / Prefer not to disclose</option>
+            <option value="man">Man</option>
+            <option value="woman">Woman</option>
+            <option value="trans-man">Trans Man</option>
+            <option value="trans-woman">Trans Woman</option>
+            <option value="non-binary">Non-Binary/Gender Queer</option>
+          </select>
         </div>
       </div>
 
       <div class="input-group">
         <div class="upload-label">
           <span>Where they charged?</span>
-          <input type="text" name="record[officerCharged]" />
+          <br/>
+          Yes: <input type="radio" name="incident[officerCharged]" value="yes"/>
+          <br/>
+          No: <input type="radio" name="incident[officerCharged]" value="no"/>
         </div>
       <br/>
         <div class="upload-label">
           <span>If so, with what:</span>
-          <input type="text" name="record[officerChargedWith]" />
+          <input type="text" name="incident[officerChargedWith]" />
         </div>
       <br/>
         <div class="upload-label">
           <span>Where they convicted?</span>
-          <input type="text" name="record[officerConvicted]" />
+          <br/>
+          Yes: <input type="radio" name="incident[officerConvicted]" value="yes"/>
+          <br/>
+          No: <input type="radio" name="incident[officerConvicted]" value="no"/>
+        </div>
+      </div>
+
+      <h3>What's your email?</h3>
+      <div class="input-group">
+        <div class="upload-label">
+          <span>
+            This is completelty optional. It's so we so we can contact you if
+            nessecary and so you can keep track of the videos you upload.
+          </span>
+          <br/>
+          <input type="text" name="incident[user_email]" />
         </div>
       </div>
     </section>
@@ -134,5 +207,5 @@
   }
   window.PBVD.file_upload_endpoint = JSON.parse('{{ file_upload_endpoint | safe }}');
 </script>
-<script async defer src="https://maps.googleapis.com/maps/api/js?key={{ MAPS_API_KEY }}&callback=initMap">
+<script async defer src="https://maps.googleapis.com/maps/api/js?libraries=places&key={{ MAPS_API_KEY }}&callback=initMap">
 </script>

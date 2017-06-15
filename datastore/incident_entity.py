@@ -12,9 +12,9 @@ class IncidentEntity(ndb.Model):
     zipCode = ndb.StringProperty()
 
     #upload data
-    upload_ip = ndb.StringProperty(required=True)
+    uploader_ip = ndb.StringProperty(required=True)
     user_email = ndb.StringProperty()
-    date = ndb.DateProperty(auto_now_add=True)
+    upload_date = ndb.DateProperty(auto_now_add=True)
     cloud_id = ndb.StringProperty(required=True)
 
     #arrested data
@@ -23,7 +23,7 @@ class IncidentEntity(ndb.Model):
     race = ndb.StringProperty()
     gender = ndb.StringProperty()
     age = ndb.IntegerProperty()
-    ability = ndb.BooleanProperty()
+    disablility = ndb.BooleanProperty()
     charged = ndb.BooleanProperty()
     chargedWith = ndb.StringProperty()
     convicted = ndb.BooleanProperty()
@@ -44,6 +44,7 @@ class IncidentEntity(ndb.Model):
     brutal = ndb.BooleanProperty()
     fatal = ndb.BooleanProperty()
     docile = ndb.BooleanProperty()
+    date = ndb.DateProperty()
 
     #stage
     has_encoded_files = ndb.BooleanProperty(default=False)

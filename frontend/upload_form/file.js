@@ -26,9 +26,10 @@ function vidfile_input_upload(){
   let name = PBVD.file_upload_endpoint.url.split('/')[5].split('.')[0];
   let oReq = new XMLHttpRequest();
   oReq.addEventListener("load", () => {
+    document.querySelector('#hidden-file-input').value = name;
     console.log(oReq.responseText);
   });
-  oReq.open('POST', `/upload?input_type=vidfile&incident[cloud_id]=${name}}`);
+  oReq.open('POST', `/upload?input_type=vidfile&incident[cloud_id]=${name}`);
   oReq.send();
 }
 
