@@ -2,6 +2,7 @@ from incident_entity import IncidentEntity
 from google.appengine.api import urlfetch
 import json
 import dateutil.parser
+import tasks
 
 
 class Incident(IncidentEntity):
@@ -9,6 +10,7 @@ class Incident(IncidentEntity):
     def create(cls, cloud_id, uploader_ip):
         incident = cls(cloud_id=cloud_id, uploader_ip=uploader_ip)
         incident.put()
+        return incident
 
     @classmethod
     def format_data(cls, params):
@@ -48,38 +50,6 @@ class Incident(IncidentEntity):
                 else:
                     data[field] = v
         return data
-
-    @classmethod
-    def add_location_data(cls, incident):
-        if incident.lat is None or incident.lng is None: return
-
-        GEO_API_URL = "https://maps.googleapis.com/maps/api/geocode/json"
-        ARGS = "?latlng={0},{1}".format(incident.lat, incident.lng)
-
-        locationData = {}
-        jsonData = urlfetch.fetch(
-            url=GEO_API_URL+ARGS,
-            follow_redirects = False).content
-        response = json.loads(jsonData)
-        address_components = response['results'][0]['address_components']
-        fields = {
-            "neighborhood":"neighborhood",
-            "administrative_area_level_1":"state",
-            "administrative_area_level_2":"city_state",
-            "locality":"city",
-            "country":"country",
-            "postal_code":"zipCode"
-        }
-
-        for i, component in enumerate(address_components):
-            if i == 0: continue
-
-            address_field = component['types'][0]
-            if address_field in fields:
-                field = fields[address_field];
-                locationData[field] = component['long_name']
-
-        incident.populate(**locationData)
 
     @classmethod
     def update_from_form(cls, cloud_id, data):
@@ -130,5 +100,43 @@ class Incident(IncidentEntity):
 
             incident.has_optional_data = True
 
-        Incident.add_location_data(incident)
+        incident.add_location_data()
         incident.put()
+        return incident
+
+    def add_location_data(self):
+        if self.lat is None or self.lng is None: return
+
+        GEO_API_URL = "https://maps.googleapis.com/maps/api/geocode/json"
+        ARGS = "?latlng={0},{1}".format(self.lat, self.lng)
+
+        locationData = {}
+        jsonData = urlfetch.fetch(
+            url=GEO_API_URL+ARGS,
+            follow_redirects = False).content
+        response = json.loads(jsonData)
+        address_components = response['results'][0]['address_components']
+        fields = {
+            "neighborhood":"neighborhood",
+            "administrative_area_level_1":"state",
+            "administrative_area_level_2":"city_state",
+            "locality":"city",
+            "country":"country",
+            "postal_code":"zipCode"
+        }
+
+        for i, component in enumerate(address_components):
+            if i == 0: continue
+
+            address_field = component['types'][0]
+            if address_field in fields:
+                field = fields[address_field];
+                locationData[field] = component['long_name']
+
+        self.populate(**locationData)
+
+    def encode_video(self):
+        if self.has_been_queued_for_encoding is False:
+            tasks.encode_video(self)
+            self.has_been_queued_for_encoding = True
+            self.put()

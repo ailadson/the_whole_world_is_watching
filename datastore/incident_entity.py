@@ -47,7 +47,8 @@ class IncidentEntity(ndb.Model):
     date = ndb.DateProperty()
 
     #stage
-    has_encoded_files = ndb.BooleanProperty(default=False)
+    has_been_queued_for_encoding = ndb.BooleanProperty(default=False)
+    has_been_encoded = ndb.BooleanProperty(default=False)
     has_required_data = ndb.BooleanProperty(default=False)
     has_optional_data = ndb.BooleanProperty(default=False)
 

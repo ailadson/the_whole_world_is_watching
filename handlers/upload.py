@@ -2,6 +2,7 @@ from base_handler import BaseHandler
 from keys import MAPS_API_KEY
 import datetime
 import dateutil.parser
+import tasks
 
 from cloud_storage.storage import get_signed_url_upload_endpoint
 from datastore.incident import Incident
@@ -21,7 +22,7 @@ class UploadHandler(BaseHandler):
                 uploader_ip=self.request.remote_addr)
         elif input_type == 'required' or input_type == 'optional':
             data = Incident.format_data(self.request.params)
-            print(data)
-            Incident.update_from_form(
+            incident = Incident.update_from_form(
                 self.request.params.get('incident[cloud_id]'), data)
+            incident.encode_video()
         self.response.write(input_type)
